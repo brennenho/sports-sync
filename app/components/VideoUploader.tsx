@@ -1,14 +1,15 @@
 import React, { useCallback } from "react";
 
 import { Button, FileButton } from "@mantine/core";
+import { IconUpload } from "@tabler/icons-react";
 import { RecordedVideo } from "../page";
 
 interface VideoUploaderProps {
-  setRecordedVideos: React.Dispatch<React.SetStateAction<RecordedVideo[]>>;
+  handleVideoUpload: (video: RecordedVideo) => void;
 }
 
 export const VideoUploader: React.FC<VideoUploaderProps> = ({
-  setRecordedVideos,
+  handleVideoUpload,
 }) => {
   const handleFileChange = useCallback((file: File | null) => {
     if (file) {
@@ -18,14 +19,23 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
         blob: file,
         name: file.name,
       };
-      setRecordedVideos((prev) => [...prev, newUploadedVideo]);
+      handleVideoUpload(newUploadedVideo);
     }
   }, []);
 
   return (
     <div>
       <FileButton onChange={handleFileChange} accept="video/*">
-        {(props) => <Button {...props}>Upload Video</Button>}
+        {(props) => (
+          <Button
+            leftSection={<IconUpload size={20} />}
+            variant="light"
+            color="teal"
+            {...props}
+          >
+            Upload Video
+          </Button>
+        )}
       </FileButton>
     </div>
   );

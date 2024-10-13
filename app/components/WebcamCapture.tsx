@@ -1,55 +1,61 @@
 import { Button } from "@mantine/core";
 import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { RecordedVideo } from "../page";
 import styles from "./WebcamCapture.module.scss";
 
 interface WebcamCaptureProps {
-  setRecordedVideos: React.Dispatch<React.SetStateAction<RecordedVideo[]>>;
+  handleVideoUpload: (video: RecordedVideo) => void;
 }
 
-export const WebcamCapture: React.FC<WebcamCaptureProps> = ({
-  setRecordedVideos,
-}) => {
+export const WebcamCapture = forwardRef((props: WebcamCaptureProps, ref) => {
+  const { handleVideoUpload } = props;
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+
+  const startWebcam = useCallback(async () => {
+    try {
+      const stream: MediaStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch (err) {
+      console.error("Error accessing media devices.", err);
+    }
+  }, []);
+
+  const stopWebcam = useCallback(() => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    startWebcam,
+    stopWebcam,
+  }));
 
   // Request access to the webcam when the component mounts
   useEffect(() => {
-    const getMedia = async () => {
-      try {
-        const stream: MediaStream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: false,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("Error accessing media devices.", err);
-        setError(
-          "Unable to access the webcam. Please check permissions and try again."
-        );
-      }
-    };
-
-    getMedia();
-
-    // Cleanup: Stop all media tracks when component unmounts
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
-        tracks.forEach((track) => track.stop());
-      }
-    };
+    startWebcam();
   }, []);
 
   // Function to start recording
   const startRecording = useCallback(() => {
     if (!videoRef.current || !videoRef.current.srcObject) {
-      setError("Webcam not accessible.");
       return;
     }
 
@@ -79,7 +85,7 @@ export const WebcamCapture: React.FC<WebcamCaptureProps> = ({
         blob,
         name: `recording_${new Date().toISOString()}.webm`,
       };
-      setRecordedVideos((prev) => [...prev, newRecordedVideo]);
+      handleVideoUpload(newRecordedVideo);
     };
 
     mediaRecorder.start();
@@ -140,25 +146,6 @@ export const WebcamCapture: React.FC<WebcamCaptureProps> = ({
           </Button>
         )}
       </div>
-      {/* <div className={styles.recordedVideosContainer}>
-        <h3>Recorded Videos</h3>
-        {recordedVideos.length === 0 && <p>No recordings yet.</p>}
-        {recordedVideos.map((video, index) => (
-          <div key={index} className={styles.recordedVideo}>
-            <video
-              src={video.url}
-              controls
-              className={styles.recordedVideoPlayer}
-            />
-            <button
-              onClick={() => downloadVideo(video)}
-              className={styles.downloadButton}
-            >
-              Download
-            </button>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
-};
+});
