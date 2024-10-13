@@ -43,7 +43,6 @@ export const HomeView: React.FC<HomeProps> = ({
       <Stack justify="flex-start" align="center" gap="md">
         <Group className={style.title} gap="xs">
           <Title c="teal">Sports</Title>
-          {/* <IconBallBaseball size={40} color="teal" /> */}
           <Title>Sync</Title>
         </Group>
         <WebcamCapture ref={webcamRef} handleVideoUpload={handleVideoUpload} />

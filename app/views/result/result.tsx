@@ -54,6 +54,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
         variant="light"
         color="teal"
         size="md"
+        radius="md"
       >
         Reset
       </Button>

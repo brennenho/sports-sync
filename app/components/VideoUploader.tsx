@@ -31,6 +31,7 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
             leftSection={<IconUpload size={20} />}
             variant="light"
             color="teal"
+            radius="md"
             {...props}
           >
             Upload Video

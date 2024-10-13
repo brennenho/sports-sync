@@ -131,6 +131,7 @@ export const WebcamCapture = forwardRef((props: WebcamCaptureProps, ref) => {
             variant="light"
             color="teal"
             fullWidth
+            radius="md"
           >
             Record
           </Button>
@@ -141,6 +142,7 @@ export const WebcamCapture = forwardRef((props: WebcamCaptureProps, ref) => {
             variant="light"
             color="red"
             fullWidth
+            radius="md"
           >
             Record
           </Button>

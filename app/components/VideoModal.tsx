@@ -30,7 +30,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           <video
             src={recordedVideos[recordedVideos.length - 1].url}
             controls
-            style={{ width: "100%" }}
+            style={{ width: "100%", borderRadius: "10px" }}
           />
           <Group justify="space-between" grow style={{ width: "100%" }}>
             <Button
@@ -39,6 +39,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
               color="teal"
               fullWidth
               onClick={processVideo}
+              radius="md"
             >
               Yes
             </Button>
@@ -48,6 +49,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
               color="red"
               fullWidth
               onClick={close}
+              radius="md"
             >
               No
             </Button>
