@@ -6,7 +6,6 @@ import style from "./home.module.scss";
 import { useDisclosure } from "@mantine/hooks";
 import { VideoModal, VideoUploader, WebcamCapture } from "../../components";
 import { RecordedVideo } from "../../page";
-import { MatchViewButton } from "../../components/MatchViewButton";
 
 interface HomeProps {
   recordedVideos: RecordedVideo[];
@@ -19,7 +18,7 @@ export const HomeView: React.FC<HomeProps> = ({
   recordedVideos,
   setRecordedVideos,
   processVideo,
-  setView
+  setView,
 }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const webcamRef = useRef<{ startWebcam: () => void; stopWebcam: () => void }>(
@@ -42,7 +41,11 @@ export const HomeView: React.FC<HomeProps> = ({
   return (
     <div>
       <Stack justify="flex-start" align="center" gap="md">
-        <Title className={style.title}>Sports Sync</Title>
+        <Group className={style.title} gap="xs">
+          <Title c="teal">Sports</Title>
+          {/* <IconBallBaseball size={40} color="teal" /> */}
+          <Title>Sync</Title>
+        </Group>
         <WebcamCapture ref={webcamRef} handleVideoUpload={handleVideoUpload} />
         <Group>
           <Text>Or, manually upload a video</Text>

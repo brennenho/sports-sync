@@ -1,2 +1,3 @@
-export * from "./home/home";    
-export * from "./match-result/match-result";
+export * from "./about/about";
+export * from "./home/home";
+export * from "./result/result";

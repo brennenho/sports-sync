@@ -1,8 +1,8 @@
 "use client";
 
-import { LoadingOverlay } from "@mantine/core";
+import { LoadingOverlay, Switch } from "@mantine/core";
 import { useState } from "react";
-import { HomeView, MatchResultView } from "./views";
+import { AboutView, HomeView, ResultView } from "./views";
 
 import { sendVideo } from "./api";
 
@@ -18,6 +18,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [playerURL, setPlayerURL] = useState<string>("");
   const [playerName, setPlayerName] = useState<string>("");
+  const [aboutView, setAboutView] = useState(false);
 
   const processVideo = async () => {
     setLoading(true);
@@ -34,7 +35,7 @@ export default function Home() {
       setPlayerName(player);
     }
     setLoading(false);
-    setView("match-result");
+    setView("result");
   };
 
   return (
@@ -44,7 +45,16 @@ export default function Home() {
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 2 }}
       />
-      {view === "home" && (
+      <Switch
+        label="About"
+        labelPosition="left"
+        size="md"
+        color="teal"
+        checked={aboutView}
+        onChange={(event) => setAboutView(event.currentTarget.checked)}
+        style={{ position: "fixed", top: 20, right: 20 }}
+      />
+      {!aboutView && view === "home" && (
         <HomeView
           recordedVideos={recordedVideos}
           setRecordedVideos={setRecordedVideos}
@@ -52,14 +62,15 @@ export default function Home() {
           setView={setView}
         />
       )}
-      {view === "match-result" && (
-        <MatchResultView
+      {!aboutView && view === "result" && (
+        <ResultView
           recordedVideos={recordedVideos}
           setView={setView}
           playerURL={playerURL}
           playerName={playerName}
         />
       )}
+      {aboutView && <AboutView />}
     </div>
   );
 }
