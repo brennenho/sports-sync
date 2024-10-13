@@ -11,3 +11,9 @@ See the accompanying backend code [here](https://github.com/fheilz/sports-sync-s
 - Run development server: `npm run dev`
 
 View the live website at [http://localhost:3000](http://localhost:3000).
+
+## Screenshots
+
+![Home](assets/home.png)
+![Video Submission](assets/video_submission.png)
+![Result](assets/result.png)
