@@ -3,6 +3,7 @@
 import { LoadingOverlay } from "@mantine/core";
 import { useState } from "react";
 import { HomeView } from "./views";
+import { MatchResultView } from "./views";
 
 import { sendVideo } from "./api";
 
@@ -39,6 +40,13 @@ export default function Home() {
           recordedVideos={recordedVideos}
           setRecordedVideos={setRecordedVideos}
           processVideo={processVideo}
+          setView={setView}
+        />
+      )}
+      {view === "match-result" && (
+        <MatchResultView 
+          recordedVideos={recordedVideos}
+          setView={setView}
         />
       )}
     </div>

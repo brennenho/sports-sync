@@ -1,0 +1,27 @@
+.container {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.title {
+  color: #1900ff;
+  margin-bottom: 20px;
+}
+
+.videoWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.videoContainer {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.video {
+  border-radius: 8px;
+}
