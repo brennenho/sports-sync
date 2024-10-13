@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./match-result.module.scss";
+import style from "../views/match-result/match-result.module.scss";
 
 interface VideoPlayerProps {
   src: string;

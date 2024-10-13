@@ -1,6 +1,6 @@
 import React from "react";
 import { Center, Title } from "@mantine/core";
-import style from "./match-result.module.scss";
+import style from "../views/match-result/match-result.module.scss";
 
 interface ResultTitleProps {
   text: string;

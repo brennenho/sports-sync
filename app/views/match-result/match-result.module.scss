@@ -1,27 +1,64 @@
 .container {
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 8px;
+  background-color: #f0f0f0; // Light background for a clean look
+  padding: 30px; // Increased padding for a spacious feel
+  border-radius: 10px; // Slightly more rounded corners
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
 }
 
 .title {
-  color: #1900ff;
-  margin-bottom: 20px;
+  color: #28a745; // Bright title color
+  font-size: 4.0rem; // Larger font size for emphasis
+  text-align: center; // Centered title
+  margin-bottom: 15px; // Space below the title
+}
+
+.resultName {
+  font-weight: bold; // Emphasized result name
+  font-size: 1.5rem; // Slightly larger font size
+  color: #28a745; // Fun color for result name
+  text-align: center; // Centered text
+  margin: 10px 0; // Margin above and below
 }
 
 .videoWrapper {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: center; // Center videos
+  gap: 30px; // Increased gap between videos
+  margin-top: 20px; // Space above video section
 }
 
 .videoContainer {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff; // White background for video containers
+  padding: 10px; // Padding inside video containers
+  border-radius: 10px; // More rounded corners
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  overflow: hidden; // To ensure rounded corners for video element
 }
 
 .video {
+  border-radius: 8px; // Rounded corners for the video element
+  width: 100%; // Full width for responsive design
+}
+
+.button {
+  display: flex;
+  justify-content: center; // Center the button
+  margin-top: 20px; // Space above the button
+  align-items: center;
+  background-color: transparent;
+  color: teal;
+  cursor: pointer;
+  padding: 1px 1px; // Add some padding for a better look
   border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  width: fit-content;
+
+  &:hover {
+    background-color: rgba(0, 128, 128, 0.2); // Slightly darker shade for hover
+    color: darken(teal, 10%); // Darker text color on hover
+  }
+
+  & > svg {
+    margin-right: 0.5rem; // Space between the icon and text
+  }
 }

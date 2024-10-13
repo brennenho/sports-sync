@@ -54,7 +54,6 @@ export const HomeView: React.FC<HomeProps> = ({
           recordedVideos={recordedVideos}
           processVideo={processVideoClose}
         />
-          <MatchViewButton onClick={() => setView("match-result")} />
       </Stack>
     </div>
   );
