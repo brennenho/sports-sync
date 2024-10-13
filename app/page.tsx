@@ -25,7 +25,7 @@ export default function Home() {
       await sendVideo(recordedVideos[0]);
     }
     setLoading(false);
-    setView("home");
+    setView("match-result");
   };
 
   return (
