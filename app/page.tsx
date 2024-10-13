@@ -1,9 +1,10 @@
 "use client";
 
 import { LoadingOverlay } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { HomeView } from "./views";
+
+import { sendVideo } from "./api";
 
 export interface RecordedVideo {
   url: string;
@@ -14,11 +15,16 @@ export interface RecordedVideo {
 export default function Home() {
   const [view, setView] = useState<string>("home");
   const [recordedVideos, setRecordedVideos] = useState<RecordedVideo[]>([]);
-  const [loading, { toggle }] = useDisclosure(false);
+  const [loading, setLoading] = useState(false);
 
-  const processVideo = () => {
-    toggle();
+  const processVideo = async () => {
+    setLoading(true);
     setView("empty");
+    if (recordedVideos.length == 1) {
+      await sendVideo(recordedVideos[0]);
+    }
+    setLoading(false);
+    setView("home");
   };
 
   return (
