@@ -1,18 +1,19 @@
-import classNames from "classnames"; // Import classnames for conditional classes
+import { Button } from "@mantine/core";
+import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from "./WebcamCapture.module.scss"; // Import the SCSS module
+import { RecordedVideo } from "../page";
+import styles from "./WebcamCapture.module.scss";
 
-interface RecordedVideo {
-  url: string;
-  blob: Blob;
-  name: string;
+interface WebcamCaptureProps {
+  setRecordedVideos: React.Dispatch<React.SetStateAction<RecordedVideo[]>>;
 }
 
-export const WebcamCapture: React.FC = () => {
+export const WebcamCapture: React.FC<WebcamCaptureProps> = ({
+  setRecordedVideos,
+}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [recordedVideos, setRecordedVideos] = useState<RecordedVideo[]>([]);
   const [error, setError] = useState<string>("");
 
   // Request access to the webcam when the component mounts
@@ -107,8 +108,6 @@ export const WebcamCapture: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Webcam Video Recorder</h2>
-      {error && <p className={styles.error}>{error}</p>}
       <div className={styles.videoContainer}>
         <video
           ref={videoRef}
@@ -120,19 +119,28 @@ export const WebcamCapture: React.FC = () => {
       </div>
       <div className={styles.controls}>
         {!isRecording ? (
-          <button onClick={startRecording} className={styles.button}>
-            Start Recording
-          </button>
-        ) : (
-          <button
-            onClick={stopRecording}
-            className={classNames(styles.button, styles.stopButton)}
+          <Button
+            onClick={startRecording}
+            leftSection={<IconPlayerPlay size={20} />}
+            variant="light"
+            color="teal"
+            fullWidth
           >
-            Stop Recording
-          </button>
+            Record
+          </Button>
+        ) : (
+          <Button
+            onClick={stopRecording}
+            leftSection={<IconPlayerStop size={20} />}
+            variant="light"
+            color="red"
+            fullWidth
+          >
+            Record
+          </Button>
         )}
       </div>
-      <div className={styles.recordedVideosContainer}>
+      {/* <div className={styles.recordedVideosContainer}>
         <h3>Recorded Videos</h3>
         {recordedVideos.length === 0 && <p>No recordings yet.</p>}
         {recordedVideos.map((video, index) => (
@@ -150,7 +158,7 @@ export const WebcamCapture: React.FC = () => {
             </button>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
